@@ -1,7 +1,9 @@
 package com.example.messagingstompwebsocket;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
@@ -29,6 +31,9 @@ import java.util.Map;
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
+	@Autowired
+	private Environment environment;
+
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry config) {
 		config.setApplicationDestinationPrefixes("/app");
@@ -39,10 +44,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 		//.setClientLogin("admin")
 		//.setClientPasscode("justinrigon92");
 
-		.setRelayHost("localhost")
-		.setRelayPort(61613)
-		.setClientPasscode("guest")
-		.setClientLogin("guest");
+		.setRelayHost(environment.getProperty("application.rabbitmq.host"))
+		.setRelayPort(environment.getProperty("application.rabbitmq.port", Integer.class))
+		.setClientPasscode(environment.getProperty("application.rabbitmq.passcode"))
+		.setClientLogin(environment.getProperty("application.rabbitmq.login"));
 
 		//config.enableSimpleBroker("/topic");
 

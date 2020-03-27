@@ -1,0 +1,21 @@
+version: '2'
+services:
+  websocket-app:
+    image: websocket
+    environment:
+      - APPLICATION_RABBITMQ_HOST=rabbitmq
+      - APPLICATION_RABBITMQ_PORT=61613
+      - APPLICATION_RABBITMQ_LOGIN=test
+      - APPLICATION_RABBITMQ_PASSCODE=test
+      - JAVA_OPTS=-Xmx512m -Xms256m
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    ports:
+      - 8090:8090
+  rabbitmq:
+    extends:
+      service: rabbitmq
+      file: rabbitmq/rabbitmq.yml

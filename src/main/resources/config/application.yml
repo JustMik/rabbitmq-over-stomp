@@ -1,0 +1,6 @@
+application:
+  rabbitmq:
+    host: localhost
+    port: 61613
+    login: guest
+    passcode: guest

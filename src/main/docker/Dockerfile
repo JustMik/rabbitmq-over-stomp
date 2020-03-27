@@ -1,10 +1,5 @@
-FROM bitnami/rabbitmq:3.8
+FROM openjdk:8-jre-alpine
 
-RUN rabbitmq-plugins enable --offline rabbitmq_stomp
-RUN rabbitmq-plugins enable --offline rabbitmq_web_stomp
-#RUN rabbitmqctl add_user test test
-#RUN rabbitmqctl set_user_tags test administrator
-#RUN rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
+ADD target/*.jar websocket.jar
+ENTRYPOINT ["java", "-Dserver.port=8090", "-Dnode.port=8090", "-Djava.security.egd=file:/dev/./urandom", "-jar","/websocket.jar"]
 
-EXPOSE 61613
-EXPOSE 15674
