@@ -1,5 +1,5 @@
 package com.example.messagingstompwebsocket;
-
+/*
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +15,7 @@ import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
@@ -40,7 +41,7 @@ public class MyConfig implements WebSocketMessageBrokerConfigurer {
                         MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
                 if (StompCommand.CONNECT.equals(accessor.getCommand())) {
                     Object authorization = accessor.getFirstNativeHeader("Authorization");
-                    Authentication user = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken("user", "user"));
+                    Authentication user = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken("admin", "admin"));
                     accessor.setUser(user);
                 }
                 return message;
@@ -48,3 +49,5 @@ public class MyConfig implements WebSocketMessageBrokerConfigurer {
         };
     }
 }
+
+ */

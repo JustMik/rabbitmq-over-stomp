@@ -19,7 +19,7 @@
     Javascript and reload this page!</h2></noscript>
 <div id="main-content" class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <form class="form-inline">
                 <div class="form-group">
                     <label for="connect">WebSocket connection:</label>
@@ -29,7 +29,13 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-6">
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Chat condivisa</h4>
+        </div>
+        <div class="col-md-12">
             <form class="form-inline">
                 <div class="form-group">
                     <label for="name">What is your name?</label>
@@ -52,6 +58,41 @@
             </table>
         </div>
     </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Chat utente</h4>
+        </div>
+        <div class="col-md-12">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="user">User: </label>
+                    <input type="text" id="user" class="form-control" placeholder="User">
+                </div>
+                <br/>
+                <div class="form-group">
+                    <label for="private-message">Private message: </label>
+                    <textarea id="private-message" class="form-control" placeholder="Message"></textarea>
+                </div>
+                <button id="send-private-message" class="btn btn-default" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table id="user-chat" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Private Messages</th>
+                </tr>
+                </thead>
+                <tbody id="user-message">
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
 </body>
 </html>

@@ -37,17 +37,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry config) {
 		config.setApplicationDestinationPrefixes("/app");
+		config.enableStompBrokerRelay("/topic", "/queue")
+				.setUserRegistryBroadcast("/topic/sync-users")
+				.setRelayHost(environment.getProperty("application.rabbitmq.host"))
+				.setRelayPort(environment.getProperty("application.rabbitmq.port", Integer.class))
+				.setClientPasscode(environment.getProperty("application.rabbitmq.passcode"))
+				.setClientLogin(environment.getProperty("application.rabbitmq.login"))
+				.setSystemLogin(environment.getProperty("application.rabbitmq.login"))
+				.setSystemPasscode(environment.getProperty("application.rabbitmq.passcode"));
 
-		config.enableStompBrokerRelay("/topic")
-		//.setRelayHost("b-33696072-fddd-4284-9531-177de64ade08-2.mq.us-east-2.amazonaws.com")
-		//.setRelayPort(61614)
-		//.setClientLogin("admin")
-		//.setClientPasscode("justinrigon92");
-
-		.setRelayHost(environment.getProperty("application.rabbitmq.host"))
-		.setRelayPort(environment.getProperty("application.rabbitmq.port", Integer.class))
-		.setClientPasscode(environment.getProperty("application.rabbitmq.passcode"))
-		.setClientLogin(environment.getProperty("application.rabbitmq.login"));
 
 		//config.enableSimpleBroker("/topic");
 
@@ -55,53 +53,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/gs-guide-websocket")
-				.setHandshakeHandler(defaultHandshakeHandler())
-				.setAllowedOrigins("*");
-
-		registry.addEndpoint("/gs-guide-websocket")
+		registry.addEndpoint("/websocket")
 				.setHandshakeHandler(defaultHandshakeHandler())
 				.setAllowedOrigins("*")
 				.withSockJS()
 				.setInterceptors(httpSessionHandshakeInterceptor());
 	}
-
-	/*
-	@Override
-	public void configureClientInboundChannel(ChannelRegistration registration) {
-		registration.interceptors(new ChannelInterceptor() {
-			@Override
-			public Message<?> preSend(Message<?> message, MessageChannel channel) {
-				return null;
-			}
-
-			@Override
-			public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
-
-			}
-
-			@Override
-			public void afterSendCompletion(Message<?> message, MessageChannel channel, boolean sent, Exception ex) {
-
-			}
-
-			@Override
-			public boolean preReceive(MessageChannel channel) {
-				return false;
-			}
-
-			@Override
-			public Message<?> postReceive(Message<?> message, MessageChannel channel) {
-				return null;
-			}
-
-			@Override
-			public void afterReceiveCompletion(Message<?> message, MessageChannel channel, Exception ex) {
-
-			}
-		});
-	}
-	*/
 
 	public static final String IP_ADDRESS = "IP_ADDRESS";
 

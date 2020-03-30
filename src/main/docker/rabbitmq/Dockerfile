@@ -16,8 +16,13 @@ USER root
 RUN chmod +x /init_rabbitmq.sh
 
 # TODO Probabilmente non serve esporle anche qua avendolo gia fatto nello yml
-EXPOSE 61613
+#EXPOSE 5672
 EXPOSE 15672
+#EXPOSE 15674
+#EXPOSE 25672
+EXPOSE 61613
+
+
 
 # Define default command
 CMD ["/init_rabbitmq.sh"]

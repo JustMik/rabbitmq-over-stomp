@@ -19,7 +19,7 @@ import java.security.Principal;
 @Controller
 public class GreetingController {
 
-	@Value("${node.port}")
+	@Value("${server.port}")
 	private String port;
 	private final ObjectMapper objectMapper;
 	private final SimpMessagingTemplate template;
@@ -30,53 +30,28 @@ public class GreetingController {
 	}
 
 	/*
-	@MessageMapping("/hello/{chatId}")
-	@SendTo("/topic/chat.{chatId}")
-	@ExceptionHandler()
-	public Greeting user2(@DestinationVariable String chatId,
-						 HelloMessage message) throws Exception {
-		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Thread.sleep(1000); // simulated delay
-		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "! - port [" + port + "] - group: " + chatId + " - id: " + username);
-	}
-
-	@MessageMapping("/hello")
-	@SendToUser("/topic/user") //.{userId}
-	//@ExceptionHandler(value = )
-	public Greeting chat(@DestinationVariable("group") String group,
-						  @DestinationVariable("id") int id,
-						  HelloMessage message) throws Exception {
-		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Thread.sleep(1000); // simulated delay
-		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "! - port [" + port + "] - group: " + group + " - id: " + id);
-	}
-
+		Topic messages - map /app/messages to /topic/messages
+		Messages are delivered in broadcast across all nodes
 	 */
-
-	@MessageMapping("/messages/{group}/{id}")
-	@SendTo("/topic/group.{group}.id.{id}")
-	//@ExceptionHandler()
-	public Greeting user(@DestinationVariable("group") String group,
-						 @DestinationVariable("id") int id,
-						 HelloMessage message) throws Exception {
+	@MessageMapping("/messages")
+	//@SendTo("/topic/private")
+	public Greeting chat(HelloMessage message, Principal principal) throws Exception {
 		Thread.sleep(1000); // simulated delay
-		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "! - port [" + port + "] - group: " + group + " - id: " + id);
-	}
-
-	@MessageMapping("/messages/{group}")
-	@SendTo("/topic/group.{group}")
-	public Greeting group(@DestinationVariable("group") String group, HelloMessage message) throws Exception {
-		Thread.sleep(1000); // simulated delay
-		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "! - port [" + port + "] - group: " + group );
+		return new Greeting("Messaggio condiviso!! " + HtmlUtils.htmlEscape(message.getName()) + "! - port [" + port + "] from user: " + principal.getName() );
 	}
 
 	/*
-	@MessageMapping("/messages")
-	@SendToUser("/topic/message")
-	public Greeting messageByUser(HelloMessage message, Principal principal) throws Exception {
+    Topic messages - map /app/messages to /topic/messages
+    Messages are delivered in broadcast across all nodes
+ */
+
+	@MessageMapping("/chat/user-{destinationUser}")
+	@SendTo("/user/{destinationUser}/queue/chat")
+	public Greeting user(@DestinationVariable("destinationUser") String destinationUser, HelloMessage message, Principal principal) throws Exception {
 		Thread.sleep(1000); // simulated delay
-		return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "! - port [" + port + "]" );
+		return new Greeting("PRIVATE Message: , " + HtmlUtils.htmlEscape(message.getName()) + "! - port [" + port + "] from user: " + principal.getName() );
 	}
-	 */
+
+
 
 }
