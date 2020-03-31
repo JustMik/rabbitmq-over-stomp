@@ -9,6 +9,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+import com.example.messagingstompwebsocket.dto.MessageResponseDTO;
+import com.example.messagingstompwebsocket.dto.MessageDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +31,7 @@ import org.springframework.web.socket.sockjs.client.Transport;
 import org.springframework.web.socket.sockjs.client.WebSocketTransport;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GreetingIntegrationTests {
+public class MessageResponseDTOIntegrationTests {
 
 	@LocalServerPort
 	private int port;
@@ -63,12 +65,12 @@ public class GreetingIntegrationTests {
 				session.subscribe("/topic/greetings", new StompFrameHandler() {
 					@Override
 					public Type getPayloadType(StompHeaders headers) {
-						return Greeting.class;
+						return MessageResponseDTO.class;
 					}
 
 					@Override
 					public void handleFrame(StompHeaders headers, Object payload) {
-						Greeting greeting = (Greeting) payload;
+						MessageResponseDTO greeting = (MessageResponseDTO) payload;
 						try {
 							assertEquals("Hello, Spring!", greeting.getContent());
 						} catch (Throwable t) {
@@ -80,7 +82,7 @@ public class GreetingIntegrationTests {
 					}
 				});
 				try {
-					session.send("/app/hello", new HelloMessage("Spring"));
+					session.send("/app/hello", new MessageDTO("Spring"));
 				} catch (Throwable t) {
 					failure.set(t);
 					latch.countDown();

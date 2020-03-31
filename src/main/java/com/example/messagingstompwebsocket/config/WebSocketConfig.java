@@ -1,4 +1,4 @@
-package com.example.messagingstompwebsocket;
+package com.example.messagingstompwebsocket.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -57,7 +57,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 				.setHandshakeHandler(defaultHandshakeHandler())
 				.setAllowedOrigins("*")
 				.withSockJS()
-				.setInterceptors(httpSessionHandshakeInterceptor());
+				.setInterceptors(httpSessionHandshakeInterceptor())
+				.setClientLibraryUrl("/webjars/sockjs-client/1.0.2/sockjs.min.js");
 	}
 
 	public static final String IP_ADDRESS = "IP_ADDRESS";

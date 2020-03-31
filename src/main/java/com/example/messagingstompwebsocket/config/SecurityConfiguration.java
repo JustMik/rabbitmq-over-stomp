@@ -1,4 +1,4 @@
-package com.example.messagingstompwebsocket;
+package com.example.messagingstompwebsocket.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -61,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/", "/css/**", "/js/**" , "/login", "/logout", "/gs-guide-websocket").permitAll()
+                .antMatchers("/", "/css/**", "/js/**" , "/login", "/logout", "/websocket").permitAll()
                 .antMatchers("/api/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

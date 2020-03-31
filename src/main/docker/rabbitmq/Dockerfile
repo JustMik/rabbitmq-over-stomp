@@ -11,18 +11,11 @@ ENV RABBITMQ_PASSWORD test
 
 ADD init_rabbitmq.sh /init_rabbitmq.sh
 
-# TODO Da fixare e usare user normale
 USER root
-RUN chmod +x /init_rabbitmq.sh
-
-# TODO Probabilmente non serve esporle anche qua avendolo gia fatto nello yml
-#EXPOSE 5672
+RUN sudo chmod +x /init_rabbitmq.sh
+#USER jrigon
 EXPOSE 15672
-#EXPOSE 15674
-#EXPOSE 25672
 EXPOSE 61613
-
-
 
 # Define default command
 CMD ["/init_rabbitmq.sh"]
