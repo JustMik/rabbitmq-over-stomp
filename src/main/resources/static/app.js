@@ -21,6 +21,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
+
         stompClient.subscribe('/topic/messages', function (greeting) {
             console.log("Received on /topic/messages - ", greeting);
             showGreeting(JSON.parse(greeting.body).content);
@@ -37,7 +38,6 @@ function connect() {
             console.log("Received on /user/queue/chat - ", greeting);
             showPrivateMessage(JSON.parse(greeting.body).content);
         });
-
 
     });
 }

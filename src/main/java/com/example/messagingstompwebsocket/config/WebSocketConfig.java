@@ -36,7 +36,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry config) {
-		config.setApplicationDestinationPrefixes("/app");
 		config.enableStompBrokerRelay("/topic", "/queue")
 				.setUserRegistryBroadcast("/topic/sync-users")
 				.setRelayHost(environment.getProperty("application.rabbitmq.host"))
@@ -45,10 +44,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 				.setClientLogin(environment.getProperty("application.rabbitmq.login"))
 				.setSystemLogin(environment.getProperty("application.rabbitmq.login"))
 				.setSystemPasscode(environment.getProperty("application.rabbitmq.passcode"));
-
-
-		//config.enableSimpleBroker("/topic");
-
+		config.setApplicationDestinationPrefixes("/app", "/topic", "/user");
+		// Il traffico su questi prefissi viene gestito dai controller a livello applicativo
+		// @SubscribeMapping e @MessageMapping
 	}
 
 	@Override

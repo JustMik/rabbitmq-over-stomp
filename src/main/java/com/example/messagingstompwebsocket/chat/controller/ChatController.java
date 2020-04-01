@@ -14,6 +14,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
+import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.util.HtmlUtils;
 
@@ -25,12 +26,36 @@ public class ChatController {
 
 	private final static Logger logger = LoggerFactory.getLogger(ChatController.class);
 
+	@SubscribeMapping("/messages")
+	public MessageResponseDTO subscribeChat(Principal principal) {
+		return null;
+	}
+
+	@SubscribeMapping("/queue/chat")
+	@SendTo("/user/queue/chat")
+	public MessageResponseDTO subscribeMyselfUser(Principal principal) {
+		// Intercetto il subscribe dell'utente. Anche se non serve fare nulla, è già loggato
+		return null;
+	}
+
+	// Protect for subscribe on other user
+	@SubscribeMapping("/{username}/queue/chat")
+	@SendTo("/user/{username}/queue/chat")
+	public MessageResponseDTO subscribeGenericUser(@DestinationVariable("username") String username, Principal principal) {
+		// In ogni caso, se user fa il subscribe sulla chat di user2, non riceve comunque i messaggi. Torniamo comunque un'eccezione
+		if (username.equals(principal.getName())) {
+			return null;
+		} else {
+			throw new PrivateForbiddenException("Access Denied");
+		}
+	}
+
 	/*
 		Topic messages - map /app/messages to /topic/messages
 		Messages are delivered in broadcast across all nodes
 	 */
 	@MessageMapping("/messages")
-	//@SendTo("/topic/messages")
+	@SendTo("/topic/messages")
 	public MessageResponseDTO chat(MessageDTO message, Principal principal) {
 		logger.info("Topic message from {} - Payload: {}", principal.getName(), message);
 		if (message.getName().equalsIgnoreCase("EXIT")) {
