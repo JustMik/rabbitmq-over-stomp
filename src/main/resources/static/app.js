@@ -62,7 +62,7 @@ function showGreeting(message) {
 function sendPrivateMessage() {
     stompClient.send("/app/chat/user-" + $( "#user").val(), {}, JSON.stringify({'name': $("#private-message").val()}));
     $("#user").html("");
-    $("#user-message").html("");
+    $("#private-message").html("");
 }
 
 function showPrivateMessage(message) {
