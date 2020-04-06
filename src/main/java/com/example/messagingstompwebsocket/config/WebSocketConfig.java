@@ -57,6 +57,10 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 				.withSockJS()
 				.setInterceptors(httpSessionHandshakeInterceptor())
 				.setClientLibraryUrl("/webjars/sockjs-client/1.0.2/sockjs.min.js");
+
+		registry.addEndpoint("/websocket")
+				.setHandshakeHandler(defaultHandshakeHandler())
+				.setAllowedOrigins("*");
 	}
 
 	public static final String IP_ADDRESS = "IP_ADDRESS";
