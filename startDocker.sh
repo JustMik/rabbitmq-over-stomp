@@ -1,5 +1,4 @@
 
-mvn clean package -DskipTests
-cp target/*.jar src/main/docker/target/websocket.jar
+mvn spring-boot:build-image -DskipTests
 docker-compose -f src/main/docker/app.yml build
 docker-compose -f src/main/docker/app.yml up

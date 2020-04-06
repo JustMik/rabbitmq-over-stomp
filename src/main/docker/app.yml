@@ -1,7 +1,7 @@
 version: '2.3'
 services:
   websocket-app:
-    image: app
+    image: docker.intesys.it/lab/websocket-lab
     environment:
       - APPLICATION_RABBITMQ_HOST=rabbitmq
       - APPLICATION_RABBITMQ_PORT=61613
@@ -9,9 +9,6 @@ services:
       - APPLICATION_RABBITMQ_PASSCODE=test
       - SERVER_PORT=8090
       - JAVA_OPTS=-Xmx512m -Xms256m
-    build:
-      context: ./
-      dockerfile: Dockerfile
     scale: 2
 
   rabbitmq:
