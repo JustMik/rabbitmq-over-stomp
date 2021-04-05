@@ -1,4 +1,4 @@
-package com.example.messagingstompwebsocket.dto;
+package com.justmik.messagingstompwebsocket.dto;
 
 public class MessageResponseDTO {
 

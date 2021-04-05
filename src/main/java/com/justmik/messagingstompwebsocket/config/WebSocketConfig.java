@@ -1,4 +1,4 @@
-package com.example.messagingstompwebsocket.config;
+package com.justmik.messagingstompwebsocket.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

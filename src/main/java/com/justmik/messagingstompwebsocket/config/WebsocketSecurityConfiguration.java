@@ -1,4 +1,4 @@
-package com.example.messagingstompwebsocket.config;
+package com.justmik.messagingstompwebsocket.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.SimpMessageType;

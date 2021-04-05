@@ -1,5 +1,7 @@
-package com.example.messagingstompwebsocket.config;
-/*
+package com.justmik.messagingstompwebsocket.config;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +17,14 @@ import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
 @Configuration
 @EnableWebSocketMessageBroker
 @Order(Ordered.HIGHEST_PRECEDENCE + 99)
-public class MyConfig implements WebSocketMessageBrokerConfigurer {
+public class BrokerConfig implements WebSocketMessageBrokerConfigurer {
+    private Logger logger = LoggerFactory.getLogger(BrokerConfig.class);
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -41,7 +43,8 @@ public class MyConfig implements WebSocketMessageBrokerConfigurer {
                         MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
                 if (StompCommand.CONNECT.equals(accessor.getCommand())) {
                     Object authorization = accessor.getFirstNativeHeader("Authorization");
-                    Authentication user = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken("admin", "admin"));
+                    logger.info("Inside ChannelInterceptor");
+                    Authentication user = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken("user", "user"));
                     accessor.setUser(user);
                 }
                 return message;
@@ -50,4 +53,4 @@ public class MyConfig implements WebSocketMessageBrokerConfigurer {
     }
 }
 
- */
+

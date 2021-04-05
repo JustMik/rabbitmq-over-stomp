@@ -1,6 +1,6 @@
-package com.example.messagingstompwebsocket.chat.service;
+package com.justmik.messagingstompwebsocket.chat.service;
 
-import com.example.messagingstompwebsocket.dto.MessageResponseDTO;
+import com.justmik.messagingstompwebsocket.dto.MessageResponseDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

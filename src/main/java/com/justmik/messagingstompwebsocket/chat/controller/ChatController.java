@@ -1,18 +1,15 @@
-package com.example.messagingstompwebsocket.chat.controller;
+package com.justmik.messagingstompwebsocket.chat.controller;
 
-import com.example.messagingstompwebsocket.dto.MessageResponseDTO;
-import com.example.messagingstompwebsocket.dto.MessageDTO;
-import com.example.messagingstompwebsocket.exceptions.PrivateForbiddenException;
-import com.example.messagingstompwebsocket.exceptions.TopicForbiddenException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.justmik.messagingstompwebsocket.dto.MessageResponseDTO;
+import com.justmik.messagingstompwebsocket.dto.MessageDTO;
+import com.justmik.messagingstompwebsocket.exceptions.PrivateForbiddenException;
+import com.justmik.messagingstompwebsocket.exceptions.TopicForbiddenException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.stereotype.Controller;

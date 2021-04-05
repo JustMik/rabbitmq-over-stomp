@@ -1,4 +1,4 @@
-package com.example.messagingstompwebsocket.exceptions;
+package com.justmik.messagingstompwebsocket.exceptions;
 
 public class PrivateForbiddenException extends RuntimeException {
 

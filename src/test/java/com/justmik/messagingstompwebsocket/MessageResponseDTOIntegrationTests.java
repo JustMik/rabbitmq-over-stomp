@@ -1,4 +1,4 @@
-package com.example.messagingstompwebsocket;
+package com.justmik.messagingstompwebsocket;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,8 +9,8 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
-import com.example.messagingstompwebsocket.dto.MessageResponseDTO;
-import com.example.messagingstompwebsocket.dto.MessageDTO;
+import com.justmik.messagingstompwebsocket.dto.MessageResponseDTO;
+import com.justmik.messagingstompwebsocket.dto.MessageDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
